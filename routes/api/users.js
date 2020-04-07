@@ -6,6 +6,8 @@ const passport = require("passport");
 
 const router = express.Router();
 
+const validRegiterInput = require("../../validation/register");
+const validLoginInput = require("../../validation/login");
 const keys = require("../../config/keys");
 const User = require("../../models/User");
 
@@ -18,10 +20,18 @@ router.get("/test", (req, res) => res.json({ msg: "Users work" }));
 // @desc   Register User
 // access  Public
 router.post("/register", (req, res) => {
+
+  const { errors, isValid } = validRegiterInput(req.body)
+
+  if(!isValid) {
+    res.status(400).json(errors)
+  }
+
   const { name, email, password } = req.body;
   User.findOne({ email }).then(user => {
     if (user) {
-      res.status(400).json({ email: "User with email already exists" });
+      errors.email = "User with email already exists"
+      res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(email, { s: "200", r: "pg", d: "mm" });
       const newUser = new User({
@@ -51,14 +61,22 @@ router.post("/register", (req, res) => {
 // @desc   Login User
 // access  Public
 router.post("/login", (req, res) => {
+  const { errors, isValid } = validLoginInput(req.body)
+
+  if(!isValid) {
+    res.status(400).json(errors)
+  }
+
   const { email, password } = req.body;
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res.status(400).json({ msg: "User not found" });
+      errors.email = "User not found"
+      return res.status(400).json(errors);
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (!isMatch) {
-        return res.status(400).json({ msg: "Password is incorrect" });
+        errors.password = "Password is incorrect"
+        return res.status(400).json(errors);
       } else {
         const payload = {
           id: user.id,
