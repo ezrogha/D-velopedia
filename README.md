@@ -1,4 +1,4 @@
-# DEVELOPER MEDIA
+# D-velopedia
 
 git clone
 
