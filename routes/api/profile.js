@@ -8,11 +8,14 @@ const validateProfileInput = require("../../validation/profile");
 const validateExperienceInput = require('../../validation/experience');
 const validateEducationInput = require('../../validation/education');
 
+
+
 // @route  GET api/profile/test
 // @desc   Test profile endpoint
 // access  Public
-
 router.get("/test", (req, res) => res.json({ msg: "Profile work" }));
+
+
 
 // @route  GET api/profile/all
 // @desc   Get all user profiles
@@ -31,6 +34,8 @@ router.get("/all", (req, res) => {
       return res.json(profiles)
     }).catch(err => res.status(404).json(err))
 })
+
+
 
 // @route  GET api/profile/handle/:handle
 // @desc   Get user profile by handle
@@ -52,6 +57,7 @@ router.get("/handle/:handle", (req, res) => {
 })
 
 
+
 // @route  GET api/profile/user/:user_id
 // @desc   Get user profile by user_id
 // access  Public
@@ -70,6 +76,7 @@ router.get("/user/:user_id", (req, res) => {
   }).catch(err => res.status(404).json(err))
 
 })
+
 
 
 // @route  GET api/profile/
@@ -95,6 +102,8 @@ router.get(
       });
   }
 );
+
+
 
 // @route  POST api/profile/
 // @desc   Post current user profile
@@ -159,6 +168,8 @@ router.post(
   }
 );
 
+
+
 // @route   POST api/profile/experience
 // @desc    Add experience to profile
 // @access  Private
@@ -192,6 +203,8 @@ router.post(
     });
   }
 );
+
+
 
 // @route   POST api/profile/education
 // @desc    Add education to profile
