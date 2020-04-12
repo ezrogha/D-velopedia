@@ -1,9 +1,11 @@
 # D-velopedia
 
-git clone
+## Setup development environment
 
-cd 
+`git clone https://github.com/ezrogha/D-velopedia.git`
 
-npm install
+`cd D-velopedia`
 
-npm run server
+`npm install`
+
+`npm run server`
