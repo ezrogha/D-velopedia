@@ -1,14 +1,11 @@
 const mongodb = require("mongodb");
+const config = require('../config/keys')
 
 const MongoClient = mongodb.MongoClient;
-// const url = `mongodb+srv://rogha_user:TMojP5SpXuVJqIQA@cluster0-1rscx.mongodb.net/test?retryWrites=true&w=majority`;
 
-// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// module.exports = client
 const mongoConnect = callback => {
   MongoClient.connect(
-    `mongodb+srv://rogha_user:TMojP5SpXuVJqIQA@cluster0-1rscx.mongodb.net/test?retryWrites=true&w=majority`,
+    config.MongoURL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true

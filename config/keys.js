@@ -1,4 +1,5 @@
-module.exports = {
-  MongoURL: `mongodb+srv://rogha_user:TMojP5SpXuVJqIQA@cluster0-1rscx.mongodb.net/test?retryWrites=true&w=majority`,
-  SecretOrKey: "secret"
-};
+if(process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+} else {
+  module.exports = require('./keys_dev');
+}
