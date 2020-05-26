@@ -22,7 +22,7 @@ app.use("/api/posts", posts)
 app.use("/api/profile", profile)
 app.use("/api/users", users)
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 mongoose
   .connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
