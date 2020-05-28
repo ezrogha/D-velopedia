@@ -1,0 +1,89 @@
+import { useState } from 'react'
+import { Button, Modal } from 'react-bootstrap'
+import {useSelector, useDispatch} from 'react-redux';
+
+import {wrapper} from '../../store'
+import {registerUser} from '../../store/actions/authAction';
+
+import FacebookButton from './FacebookButton'
+import GoogleButton from './GoogleButton'
+import InputBox from './Form/InputBox';
+
+export default function RegisterModal({ showRegister, handleCloseRegister }) {
+  const [showForm, setShowForm] = useState(false);
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [password2, setPassword2] = useState('')
+
+  const changeValue = (e) => {
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "name":
+        setName(value)
+        break;
+
+      case "email":
+        setEmail(value)
+        break;
+
+      case "password":
+        setPassword(value)
+        break;
+
+      case "password2":
+        setPassword2(value)
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  const { errors } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    const newUser = {
+      name,
+      email,
+      password,
+      password2
+    }
+    
+    dispatch(registerUser(newUser))
+   
+  }
+
+  return (
+    <Modal show={showRegister} onHide={handleCloseRegister}>
+      <Modal.Header closeButton>
+        <Modal.Title>Create your account</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {showForm &&
+          <>
+            <InputBox error={errors.name} type="text" name="name" value={name} onChangeValue={changeValue} placeholder="Name" />
+            <InputBox error={errors.email} type="email" name="email" value={email} onChangeValue={changeValue} placeholder="Email" />
+            <InputBox error={errors.password} type="password" name="password" value={password} onChangeValue={changeValue} placeholder="Password" />
+            <InputBox error={errors.password2} type="password" name="password2" value={password2} onChangeValue={changeValue} placeholder="Confirm Password" />
+          </>
+        }
+        {showForm ?
+          <Button size="lg" block onClick={onSubmit}>
+            Continue
+        </Button> :
+          <Button size="lg" block onClick={() => setShowForm(true)}>
+            Continue with Email
+        </Button>}
+        <GoogleButton handleClose={handleCloseRegister} />
+        <FacebookButton handleClose={handleCloseRegister} />
+      </Modal.Body>
+    </Modal>
+  )
+}
+
+export const getStaticProps = wrapper.getStaticProps(() => {});

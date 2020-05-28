@@ -1,8 +1,12 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 
-import NavigationBar from '../components/NavigationBar';
+import NavigationBar from '../components/layout/NavigationBar';
+import LoginModal from '../components/layout/LoginModal';
+import RegisterModal from '../components/layout/RegisterModal';
+
+import { wrapper } from '../store'
 
 import styles from '../styles/landing.module.scss'
 
@@ -15,16 +19,22 @@ export default function Landing() {
 
   const handleCloseRegister = () => setShowRegister(false);
   const handleShowRegister = () => setShowRegister(true);
+
   return (
-    <div>
+    <>
       <Head>
         <title>D-velopermedia</title>
       </Head>
       <body>
-        <NavigationBar />
+
+        {/* Navigation Wrapper */}
+        <NavigationBar show={show} handleClose={handleClose} showRegister={showRegister} handleCloseRegister={handleCloseRegister} handleShowRegister={handleShowRegister} handleShow={handleShow} />
+
         <section id={styles.showcase}>
+
+          {/* Dark Wrapper */}
           <div>
-            <Container  className="position-relative">
+            <Container className="position-relative">
               <Row className="h-100 d-flex align-items-center">
                 <Col md="8">
                   <h1 className="display-2 mb-4"><span className="text-primary">D-</span>veloper Media</h1>
@@ -40,50 +50,16 @@ export default function Landing() {
                   </Row>
                 </footer>
               </Row>
-            </Container>        
+            </Container>
           </div>
-          <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Login to your account</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form.Group>
-                <Form.Control size="lg" placeholder="Email" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Control size="lg" placeholder="Password" />
-              </Form.Group>
-              <Button variant="primary" size="lg" block onClick={handleClose}>
-                  Submit
-              </Button>
-            </Modal.Body>
-          </Modal>
 
-          <Modal show={showRegister} onHide={handleCloseRegister}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create your account</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <Form.Group>
-                <Form.Control size="lg" placeholder="Name" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Control size="lg" placeholder="Email" />
-                <Form.Text>This site uses Gravatar use your Gravatar email for a profile photo</Form.Text>
-              </Form.Group>
-              <Form.Group>
-                <Form.Control size="lg" placeholder="Password" />
-              </Form.Group>
-              <Form.Group>
-                <Form.Control size="lg" placeholder="Confirm Password" />
-              </Form.Group>
-              <Button variant="primary" size="lg" block onClick={handleCloseRegister}>
-                  Submit
-              </Button>
-            </Modal.Body>
-          </Modal>
         </section>
-      </body >      
-    </div>
+      </body >
+      <LoginModal show={show} handleClose={handleClose} />
+      <RegisterModal showRegister={showRegister} handleCloseRegister={handleCloseRegister} />
+    </>
   )
 }
+
+
+export const getStaticProps =  wrapper.getStaticProps(() => {});

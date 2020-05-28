@@ -8,11 +8,11 @@ module.exports = (data) =>  {
   data.password = !isEmpty(data.password) ? data.password : ""
 
   if(!Validator.isEmail(data.email)) {
-    errors.name = 'Email is not valid'
+    errors.email = 'Email is not valid'
   }
 
   if(Validator.isEmpty(data.email, {ignore_whitespace:false })) {
-    errors.name = 'Email is required'
+    errors.email = 'Email is required'
   }
 
   

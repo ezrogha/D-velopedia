@@ -19,11 +19,11 @@ module.exports = (data) =>  {
   }
 
   if(!Validator.isEmail(data.email)) {
-    errors.name = 'Email is not valid'
+    errors.email = 'Email is not valid'
   }
 
   if(Validator.isEmpty(data.email, {ignore_whitespace:false })) {
-    errors.name = 'Email is required'
+    errors.email = 'Email is required'
   }
 
   if(!Validator.isLength(data.password, { min: 6, max: 30 })) {

@@ -1,5 +1,7 @@
 $theme-colors: (
-    "primary": teal
+    "primary": teal,
+    "facebook": rgb(24, 119, 242),
+    "google-light": rgb(220, 220, 220)
 );
 
 @import "bootstrap/scss/bootstrap";
