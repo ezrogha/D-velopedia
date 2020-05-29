@@ -1,7 +1,7 @@
 import { HYDRATE } from "next-redux-wrapper";
-import { ERRORS } from '../types'
+import { ERRORS, AUTH_LOADING } from "../types";
 
-const INITIAL_STATE = {errors: {}};
+const INITIAL_STATE = { errors: {}, loading: false };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -9,7 +9,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...action.payload };
 
     case ERRORS:
-        return { ...state, errors: action.payload }
+      return { ...state, errors: action.payload };
+
+    case AUTH_LOADING:
+      return { ...state, loading: action.payload };
 
     default:
       return state;

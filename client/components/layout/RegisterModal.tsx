@@ -2,14 +2,13 @@ import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import {useSelector, useDispatch} from 'react-redux';
 
-import {wrapper} from '../../store'
 import {registerUser} from '../../store/actions/authAction';
 
 import FacebookButton from './FacebookButton'
 import GoogleButton from './GoogleButton'
 import InputBox from './Form/InputBox';
 
-export default function RegisterModal({ showRegister, handleCloseRegister }) {
+export default function RegisterModal({ showRegister, handleCloseRegister, handleShowLogin }) {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -41,7 +40,7 @@ export default function RegisterModal({ showRegister, handleCloseRegister }) {
     }
   }
 
-  const { errors } = useSelector(state => state.auth)
+  const { errors, loading } = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   const onSubmit = (e) => {
@@ -54,7 +53,7 @@ export default function RegisterModal({ showRegister, handleCloseRegister }) {
       password2
     }
     
-    dispatch(registerUser(newUser))
+    dispatch(registerUser(newUser, handleCloseRegister, handleShowLogin))
    
   }
 
@@ -73,8 +72,8 @@ export default function RegisterModal({ showRegister, handleCloseRegister }) {
           </>
         }
         {showForm ?
-          <Button size="lg" block onClick={onSubmit}>
-            Continue
+          <Button size="lg" disabled={loading ? true : false} block onClick={onSubmit}>
+            { loading ? "Loading..." : "Continue" }
         </Button> :
           <Button size="lg" block onClick={() => setShowForm(true)}>
             Continue with Email
@@ -85,5 +84,3 @@ export default function RegisterModal({ showRegister, handleCloseRegister }) {
     </Modal>
   )
 }
-
-export const getStaticProps = wrapper.getStaticProps(() => {});

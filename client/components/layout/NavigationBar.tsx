@@ -1,8 +1,34 @@
-import { Navbar, Nav } from 'react-bootstrap';
-import LoginModal from './LoginModal'
-import RegisterModal from './RegisterModal'
+import { Navbar, Nav, Image } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
-export default function NavigationBar({ showRegister, handleCloseRegister, show, handleClose, handleShowRegister, handleShow }) {
+import { logoutUser } from '../../store/actions/authAction'
+
+const emptyFunc = () => {}
+
+export default function NavigationBar({ handleShowRegister=emptyFunc, handleShow=emptyFunc }) {
+  const dispatch = useDispatch()
+  const { isAuthenticated, user } = useSelector(state => state.user)
+
+  const logout = () => {
+    dispatch(logoutUser())
+  }
+
+  const authLinks = (
+    <Nav className="ml-auto">
+      <Nav.Link onClick={logout}>
+        <Image src={user.avatar} roundedCircle style={{ width: '25px', marginRight:'5px' }} />
+        Logout
+      </Nav.Link>
+    </Nav>
+  )
+
+  const guessLinks = (
+    <Nav className="ml-auto">      
+      <Nav.Link onClick={handleShowRegister}>Sign Up</Nav.Link>
+      <Nav.Link onClick={handleShow}>Login</Nav.Link>
+    </Nav>
+  )
+
   return (
     <>
       <Navbar bg="dark" expand="lg" className="navbar-dark fixed-top px-5">
@@ -13,14 +39,9 @@ export default function NavigationBar({ showRegister, handleCloseRegister, show,
           <Nav>
             <Nav.Link>Developers</Nav.Link>
           </Nav>
-          <Nav className="ml-auto">
-            <Nav.Link onClick={handleShowRegister}>Sign Up</Nav.Link>
-            <Nav.Link onClick={handleShow}>Login</Nav.Link>
-          </Nav>
+          {isAuthenticated ? authLinks : guessLinks}
         </Navbar.Collapse>
       </Navbar>
-      <LoginModal show={show} handleClose={handleClose} />
-      <RegisterModal showRegister={showRegister} handleCloseRegister={handleCloseRegister} />
     </>
   )
 }

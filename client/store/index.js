@@ -9,6 +9,6 @@ import rootReducer from './reducers'
 const initialState = {}
 const middleware = [thunk]
 
-const makeStore = () => createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
+export const store = createStore(rootReducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
-export const wrapper = createWrapper(makeStore, {debug: true});
+export const wrapper = createWrapper(() => store, {debug: true});

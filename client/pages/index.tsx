@@ -6,8 +6,6 @@ import NavigationBar from '../components/layout/NavigationBar';
 import LoginModal from '../components/layout/LoginModal';
 import RegisterModal from '../components/layout/RegisterModal';
 
-import { wrapper } from '../store'
-
 import styles from '../styles/landing.module.scss'
 
 export default function Landing() {
@@ -56,10 +54,7 @@ export default function Landing() {
         </section>
       </body >
       <LoginModal show={show} handleClose={handleClose} />
-      <RegisterModal showRegister={showRegister} handleCloseRegister={handleCloseRegister} />
+      <RegisterModal showRegister={showRegister} handleCloseRegister={handleCloseRegister} handleShowLogin={handleShow} />
     </>
   )
 }
-
-
-export const getStaticProps =  wrapper.getStaticProps(() => {});

@@ -1,18 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import Router from 'next/router'
 import {useSelector, useDispatch} from 'react-redux';
 import { Button, Modal } from 'react-bootstrap'
+
 import FacebookButton from './FacebookButton'
 import GoogleButton from './GoogleButton'
 
-import {wrapper} from '../../store'
 import {loginUser} from '../../store/actions/authAction';
 
 import InputBox from './Form/InputBox';
 
 export default function LoginModal({ show, handleClose }) {
+  const { errors, loading } = useSelector(state => state.auth)
+  const { isAuthenticated } = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   const [showForm, setShowForm] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    isAuthenticated && Router.push("/dashboard");
+  })
 
   const changeValue = (e) => {
     const { name, value } = e.target;
@@ -30,9 +39,6 @@ export default function LoginModal({ show, handleClose }) {
         break;
     }
   }
-
-  const { errors } = useSelector(state => state.auth)
-  const dispatch = useDispatch()
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -56,8 +62,8 @@ export default function LoginModal({ show, handleClose }) {
             <InputBox error={errors.email} type="email" name="email" value={email} onChangeValue={changeValue} placeholder="Email" />
             <InputBox error={errors.password} type="password" name="password" value={password} onChangeValue={changeValue} placeholder="Password" />
           </>}
-        {showForm ? <Button variant="primary" onClick={onSubmit} size="lg" block>
-          Continue
+        {showForm ? <Button variant="primary" disabled={loading ? true : false} onClick={onSubmit} size="lg" block>
+        { loading ? "Loading..." : "Continue" }
               </Button> :
           <Button variant="primary" size="lg" block onClick={() => setShowForm(true)}>
             Continue with Email
@@ -69,4 +75,3 @@ export default function LoginModal({ show, handleClose }) {
   )
 }
 
-export const getStaticProps = wrapper.getStaticProps(() => {});
