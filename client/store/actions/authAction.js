@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../../utils/setAuthToken'
+import { clearProfile } from './profileActions'
 import { ERRORS, AUTH_LOADING, SET_CURRENT_USER } from '../types'
 import { serverURL } from '../../utils/constants'
 
@@ -56,4 +57,5 @@ export const logoutUser = () => dispatch => {
 
   // remove User
   dispatch(setCurrentUser({}))
+  dispatch(clearProfile())
 }

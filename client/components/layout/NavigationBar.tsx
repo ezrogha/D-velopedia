@@ -1,16 +1,18 @@
 import { Navbar, Nav, Image } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
+import Router from 'next/router';
 
 import { logoutUser } from '../../store/actions/authAction'
 
 const emptyFunc = () => {}
 
-export default function NavigationBar({ handleShowRegister=emptyFunc, handleShow=emptyFunc }) {
+export default function NavigationBar({ handleShowRegister=emptyFunc, handleShow=emptyFunc, position="static" }) {
   const dispatch = useDispatch()
   const { isAuthenticated, user } = useSelector(state => state.user)
 
   const logout = () => {
     dispatch(logoutUser())
+    Router.push('/')
   }
 
   const authLinks = (
@@ -31,7 +33,7 @@ export default function NavigationBar({ handleShowRegister=emptyFunc, handleShow
 
   return (
     <>
-      <Navbar bg="dark" expand="lg" className="navbar-dark fixed-top px-5">
+      <Navbar bg="dark" expand="lg" className={`navbar-dark ${position} px-5`}>
         <Navbar.Brand href="#home">DveloperMedia</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

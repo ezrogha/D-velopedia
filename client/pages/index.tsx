@@ -26,7 +26,7 @@ export default function Landing() {
       <body>
 
         {/* Navigation Wrapper */}
-        <NavigationBar show={show} handleClose={handleClose} showRegister={showRegister} handleCloseRegister={handleCloseRegister} handleShowRegister={handleShowRegister} handleShow={handleShow} />
+        <NavigationBar show={show} handleClose={handleClose} showRegister={showRegister} handleCloseRegister={handleCloseRegister} handleShowRegister={handleShowRegister} handleShow={handleShow} position="fixed-top" />
 
         <section id={styles.showcase}>
 

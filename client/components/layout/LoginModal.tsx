@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Router from 'next/router'
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Modal } from 'react-bootstrap'
+import { FcGoogle } from 'react-icons/fc'
+import { FaFacebook } from 'react-icons/fa';
 
-import FacebookButton from './FacebookButton'
-import GoogleButton from './GoogleButton'
-
-import {loginUser} from '../../store/actions/authAction';
+import { loginUser } from '../../store/actions/authAction';
 
 import InputBox from './Form/InputBox';
+import SocialMediaButton from './SocialMediaButton';
 
 export default function LoginModal({ show, handleClose }) {
   const { errors, loading } = useSelector(state => state.auth)
@@ -34,7 +34,7 @@ export default function LoginModal({ show, handleClose }) {
       case "password":
         setPassword(value)
         break;
-    
+
       default:
         break;
     }
@@ -63,13 +63,13 @@ export default function LoginModal({ show, handleClose }) {
             <InputBox error={errors.password} type="password" name="password" value={password} onChangeValue={changeValue} placeholder="Password" />
           </>}
         {showForm ? <Button variant="primary" disabled={loading ? true : false} onClick={onSubmit} size="lg" block>
-        { loading ? "Loading..." : "Continue" }
-              </Button> :
+          {loading ? "Loading..." : "Continue"}
+        </Button> :
           <Button variant="primary" size="lg" block onClick={() => setShowForm(true)}>
             Continue with Email
               </Button>}
-        <GoogleButton handleClose={handleClose} />
-        <FacebookButton handleClose={handleClose} />
+        <SocialMediaButton handleClose={handleClose} Icon={FaFacebook} title="Facebook" theme="facebook" />
+        <SocialMediaButton handleClose={handleClose} Icon={FcGoogle} title="Google" theme="google-light" />
       </Modal.Body>
     </Modal>
   )

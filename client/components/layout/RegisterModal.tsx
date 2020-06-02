@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import {useSelector, useDispatch} from 'react-redux';
+import { FcGoogle } from 'react-icons/fc'
+import { FaFacebook } from 'react-icons/fa';
 
 import {registerUser} from '../../store/actions/authAction';
 
-import FacebookButton from './FacebookButton'
-import GoogleButton from './GoogleButton'
 import InputBox from './Form/InputBox';
+import SocialMediaButton from './SocialMediaButton';
 
 export default function RegisterModal({ showRegister, handleCloseRegister, handleShowLogin }) {
   const [showForm, setShowForm] = useState(false);
@@ -78,8 +79,8 @@ export default function RegisterModal({ showRegister, handleCloseRegister, handl
           <Button size="lg" block onClick={() => setShowForm(true)}>
             Continue with Email
         </Button>}
-        <GoogleButton handleClose={handleCloseRegister} />
-        <FacebookButton handleClose={handleCloseRegister} />
+        <SocialMediaButton handleClose={handleCloseRegister} Icon={FaFacebook} title="Facebook" theme="facebook" />
+        <SocialMediaButton handleClose={handleCloseRegister} Icon={FcGoogle} title="Google" theme="google-light" />
       </Modal.Body>
     </Modal>
   )
