@@ -43,7 +43,7 @@ export default function Landing() {
                 <footer className="position-absolute fixed-bottom">
                   <Row>
                     <Col md="5" className="ml-auto text-right pr-4 pb-4">
-                      <span>Copyright &copy; {new Date().getFullYear()} D-veloperMedia</span>
+                      <span>Copyright &copy; {new Date().getFullYear()} D-velopedia</span>
                     </Col>
                   </Row>
                 </footer>

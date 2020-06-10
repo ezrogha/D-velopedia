@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_PROFILE } from '../types'
+import Router from 'next/router'
+import { GET_PROFILE, PROFILE_LOADING, CLEAR_PROFILE, GET_PROFILE_ERRORS } from '../types'
 import { serverURL } from '../../utils/constants'
 
 export const getCurrentUserProfile = () => dispatch => {
@@ -17,3 +18,14 @@ export const getCurrentUserProfile = () => dispatch => {
 export const clearProfile = () => ({
   type: CLEAR_PROFILE
 })
+
+export const createProfile = (newUser) => dispatch => {
+  // dispatch({ type:  }) LOADING...
+  console.log(axios.defaults)
+  axios.post(`${serverURL}/api/profile`, newUser)
+  .then(res => Router.push('/dashboard'))
+  .catch(err => {
+    console.log(err)
+    dispatch({ type: GET_PROFILE_ERRORS, errors: err.response.data})
+  })
+}

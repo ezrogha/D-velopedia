@@ -33,8 +33,8 @@ export default function NavigationBar({ handleShowRegister=emptyFunc, handleShow
 
   return (
     <>
-      <Navbar bg="dark" expand="lg" className={`navbar-dark ${position} px-5`}>
-        <Navbar.Brand href="#home">DveloperMedia</Navbar.Brand>
+      <Navbar bg="dark" expand="lg" className={`navbar-dark ${position} px-5 mb-4`}>
+        <Navbar.Brand href="#home">Dvelopedia</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
