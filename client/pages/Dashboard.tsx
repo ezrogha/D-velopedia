@@ -9,7 +9,7 @@ import ProfileActions from '../components/layout/ProfileActions'
 import NavFooter from "../components/layout/NavFooter";
 import { getCurrentUserProfile } from '../store/actions/profileActions'
 
-import Spinner from '../public/images/spinner.gif';
+// import Spinner from '../public/images/spinner.gif';
 import PrivateRoute from '../components/PrivateRoute';
 import Experience from '../components/layout/Experience';
 import Education from '../components/layout/Education';
@@ -26,7 +26,7 @@ export default function Dashboard() {
   let dashboardContent;
 
   if (profile === null || loading) {
-    dashboardContent = <img src={Spinner} style={{ width: "200px", margin: "auto", display: "block" }} alt="Loading..." />
+    dashboardContent = <img src='/images/spinner.gif' style={{ width: "200px", margin: "auto", display: "block" }} alt="Loading..." />
   } else {
     if (Object.keys(profile).length > 0) {
       console.log("PROFILE")
