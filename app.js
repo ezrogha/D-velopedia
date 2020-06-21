@@ -39,6 +39,9 @@ app.use(function (req, res, next) {
 require('./config/passport')(passport)
 
 //Use Routes
+app.get("/", (req, res) => {
+  res.json({ "message": "Welcome" })
+})
 app.use("/api/posts", posts)
 app.use("/api/profile", profile)
 app.use("/api/users", users)
